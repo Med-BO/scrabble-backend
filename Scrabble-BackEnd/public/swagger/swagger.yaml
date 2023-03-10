@@ -1,0 +1,169 @@
+swagger: "2.0"
+info:
+  title: Scrabble project API documentation
+  description: 
+  version: 1.0.0
+host: 127.0.0.1:8000
+basePath: /api
+tags:
+  - name: "joueur"
+  - name: "partie"
+  - name: "message"
+schemes:
+  - "http"
+components:
+  schemas:
+    inscription:
+      properties:
+        nom:
+          type: string
+        photo:
+          type: string
+        typePartie:
+          type: integer
+paths:
+  /inscrire:
+    post:
+      tags:
+        - "partie"
+      summary: Creates a game
+      description: Adds a "Partie" record to the database
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: "Proprietes"
+          required: true
+          schema:
+            $ref: "#/components/schemas/inscription"
+      responses:
+        200:
+          description: OK
+  /partie/{idPartie}/joueurs:
+    get:
+      tags:
+        - "partie"
+      summary: Retrieves players 
+      description: 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "idPartie"
+          required: true
+      responses:
+        200:
+          description: OK
+  /joueur/{idJoueur}:
+    get:
+      tags:
+        - "joueur"
+      summary: Returns the game view for a player
+      description:
+      parameters:
+        - in: path
+          name: "idJoueur"
+          required: true
+      responses:
+        200:
+          description: OK
+  /partie/{idPartie}/panneau:
+    get:
+      tags:
+        - "partie"
+      summary: Retrieves the game's information panel
+      description: 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "idPartie"
+          required: true
+      responses:
+        200:
+          description: OK
+  /partie/{idPartie}/preparer:
+    put:
+      tags:
+        - "partie"
+      summary: Sends a message
+      description:
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "idPartie"
+          required: true
+      responses:
+        200:
+          description: OK
+  /partie/{idPartie}/messages:
+    get:
+      tags:
+        - "partie"
+      summary: Retrieves message list
+      description: 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "idPartie"
+          required: true
+      responses:
+        200:
+  /partie/{idPartie}/joueur/{idJoueur}/envoyer:
+    post:
+      tags:
+        - "message"
+      summary: Sends a message
+      description:
+      consumes:
+        - "application/x-www-form-urlencoded"
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "idPartie"
+          required: true
+        - in: path
+          name: "idJoueur"
+          required: true
+        - in: formData
+          name: "contenu"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: OK
+  /partie/{idPartie}/grille:
+    get:
+      tags:
+        - "partie"
+      summary: Retrieves grille
+      description: 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "idPartie"
+          required: true
+      responses:
+        200:
+          description: OK
+  /images/{photo}:
+    get:
+      tags:
+        - "joueur"
+      summary: Retrieves a photo from the database
+      description: 
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: "photo"
+          required: true
+      responses:
+        200:
+          description: OK
